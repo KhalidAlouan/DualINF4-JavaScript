@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style type="text/css" src="estilo.css" ></style>
+  </head>
+  <body onload="alerta()">
+    <ul id="msg"></ul>
+    <script type="text/javascript">
+      var nombre;
+      function alerta(){
+        nombre = prompt("User Name");
+        socket.emit('chat message',nombre.concat(" Welcome "));
+      }
+      
+    </script>
+    <form action="">
+      <input id="Sd" autocomplete="off" /><button>Send</button>
+    </form>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+	<script>
+  	var socket = io();
+	</script>
+	<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  $(function () {
+    var socket = io();
+    $('form').submit(function(e){
+      e.preventDefault();
+      socket.emit('chat message',nombre.concat(": ", $('#Sd').val()));
+      $('#Sd').val('');
+      return false;
+    });
+  });
+</script>
+<script>
+  $(function () {
+    var socket = io();
+    $('form').submit(function(e){
+      e.preventDefault();
+      socket.emit('chat message', $('#Sd').val());
+      $('#Sd').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#msg').append($('<li>').text(msg));
+    });
+  });
+
+</script>
+</html>
